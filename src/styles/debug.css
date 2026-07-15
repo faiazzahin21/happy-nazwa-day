@@ -1,0 +1,218 @@
+.debug-screen {
+  position: relative;
+  z-index: 2;
+  padding-bottom: calc(var(--space-12) + 60px);
+}
+
+.debug-header {
+  margin-bottom: var(--space-7);
+}
+
+.debug-header h1 {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-brown);
+}
+
+.debug-header p {
+  margin: 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--text-soft);
+}
+
+.debug-back {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-5);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  color: var(--accent);
+  background: none;
+  border: none;
+  min-height: 44px;
+  padding: var(--space-2) 0;
+}
+
+.debug-section {
+  margin-bottom: var(--space-8);
+}
+
+.debug-section h2 {
+  margin: 0 0 var(--space-4);
+  font-family: var(--font-ui);
+  font-size: var(--text-md);
+  font-weight: 600;
+  color: var(--color-brown);
+  border-bottom: 1px solid var(--border-soft);
+  padding-bottom: var(--space-2);
+}
+
+.debug-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: var(--space-3);
+}
+
+.debug-asset-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+}
+
+.debug-asset-item img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+.debug-asset-item span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  color: var(--text-soft);
+  text-align: center;
+  word-break: break-all;
+  line-height: 1.3;
+}
+
+.debug-font-sample {
+  padding: var(--space-4);
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--bg-card);
+  border: 1px solid var(--border-soft);
+}
+
+.debug-font-sample .label {
+  display: block;
+  margin-bottom: var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--text-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.debug-font-havana {
+  font-family: var(--font-title);
+  font-size: var(--text-2xl);
+  color: var(--color-rose);
+}
+
+.debug-font-birthday {
+  font-family: var(--font-birthday);
+  font-size: var(--text-2xl);
+  color: var(--color-gold);
+}
+
+.debug-font-playful {
+  font-family: var(--font-playful);
+  font-size: var(--text-xl);
+  color: var(--color-brown-soft);
+}
+
+.debug-stat {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-3) 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.debug-stat strong {
+  color: var(--color-brown);
+}
+
+.debug-media-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+}
+
+.debug-media-grid img,
+.debug-media-grid video {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--color-cream-deep);
+}
+
+.debug-media-grid--posters {
+  margin-bottom: var(--space-4);
+}
+
+.debug-poster-thumb {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.debug-poster-thumb img {
+  aspect-ratio: 16 / 9;
+}
+
+.debug-poster-thumb span {
+  font-family: var(--font-ui);
+  font-size: 0.65rem;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.debug-poster-status {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.debug-poster-status li {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-2) 0;
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.debug-poster-status strong {
+  color: var(--color-brown);
+  white-space: nowrap;
+}
+
+.debug-path {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--text-soft);
+  word-break: break-all;
+  padding: var(--space-2) 0;
+}
+
+.debug-path--warn {
+  color: #9a4a3a;
+  margin-top: var(--space-3);
+}
+
+.debug-subheading {
+  margin: var(--space-4) 0 var(--space-2);
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-brown-soft);
+}
+
+.debug-video-full {
+  width: 100%;
+  border-radius: var(--radius-md);
+  background: var(--color-cream-deep);
+}

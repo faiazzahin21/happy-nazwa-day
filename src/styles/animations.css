@@ -1,0 +1,141 @@
+@keyframes floatUp {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes softPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.06);
+  }
+}
+
+@keyframes sparklePulse {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scale(0.9) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.12) rotate(14deg);
+  }
+}
+
+@keyframes slowDrift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  33% {
+    transform: translate(5px, -7px);
+  }
+  66% {
+    transform: translate(-4px, 5px);
+  }
+}
+
+@keyframes siteHeartDrift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) scale(0.72) rotate(-6deg);
+  }
+  8% {
+    opacity: 1;
+  }
+  40% {
+    transform: translate3d(var(--heart-sway, 12px), calc(var(--heart-rise, 24vh) * -0.45), 0)
+      scale(1) rotate(4deg);
+  }
+  70% {
+    transform: translate3d(calc(var(--heart-sway, 12px) * -0.85), calc(var(--heart-rise, 24vh) * -0.78), 0)
+      scale(0.94) rotate(-3deg);
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--heart-sway, 12px) * 0.2), calc(var(--heart-rise, 24vh) * -1.05), 0)
+      scale(0.8) rotate(8deg);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.anim-soft-pulse {
+  animation: softPulse 3.8s var(--ease-soft) infinite;
+}
+
+.anim-sparkle {
+  animation: sparklePulse 2.6s var(--ease-soft) infinite;
+}
+
+.anim-float-up {
+  animation: floatUp 4.4s var(--ease-soft) infinite;
+}
+
+.anim-slow-drift {
+  animation: slowDrift 9s var(--ease-soft) infinite;
+}
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 1s var(--ease-premium),
+    transform 1s var(--ease-premium);
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .anim-soft-pulse,
+  .anim-sparkle,
+  .anim-float-up,
+  .anim-slow-drift,
+  .site-heart-field__slot {
+    animation: none;
+  }
+
+  .site-heart-field__slot {
+    opacity: 0.35;
+    bottom: auto;
+    top: 20%;
+    transform: none;
+  }
+
+  .site-heart-field__slot:nth-child(odd) {
+    top: 55%;
+  }
+
+  .site-heart-field {
+    opacity: 0.55;
+  }
+}

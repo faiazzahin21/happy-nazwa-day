@@ -1,0 +1,7 @@
+/* Secondary floating accents only — envelope styles live in envelope.css */
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-decor__item {
+    animation: none !important;
+  }
+}

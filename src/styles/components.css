@@ -1,0 +1,141 @@
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  transition: transform var(--duration-fast) var(--ease-soft);
+}
+
+.btn-icon:active {
+  transform: scale(0.94);
+}
+
+.gold-divider {
+  width: min(200px, 68%);
+  height: auto;
+  margin-inline: auto;
+  opacity: 0.9;
+}
+
+.music-floating-button {
+  position: fixed;
+  right: max(var(--space-4), env(safe-area-inset-right, 0px));
+  bottom: max(var(--space-5), env(safe-area-inset-bottom, 0px));
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(56px, 14vw, 62px);
+  height: clamp(56px, 14vw, 62px);
+  padding: 0;
+  border: 1px solid rgba(212, 184, 146, 0.65);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(145deg, #f8f3f1, #e8cfd4);
+  box-shadow:
+    0 12px 32px rgba(36, 21, 26, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transition:
+    transform var(--duration-fast) var(--ease-soft),
+    box-shadow 0.4s var(--ease-soft),
+    bottom 0.35s var(--ease-soft);
+}
+
+.music-floating-button--happy {
+  box-shadow:
+    0 0 0 3px rgba(212, 184, 146, 0.45),
+    0 12px 32px rgba(36, 21, 26, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+.music-floating-button--special {
+  box-shadow:
+    0 0 0 3px rgba(232, 207, 212, 0.55),
+    0 0 28px rgba(184, 149, 106, 0.4),
+    0 12px 32px rgba(36, 21, 26, 0.28);
+}
+
+body.is-final-section .music-floating-button {
+  bottom: max(calc(var(--space-5) + 52px), calc(env(safe-area-inset-bottom, 0px) + 52px));
+}
+
+.music-floating-button img {
+  width: 68%;
+  height: 68%;
+  margin: auto;
+  object-fit: contain;
+}
+
+.music-floating-button:active {
+  transform: scale(0.94);
+}
+
+@media (min-width: 520px) {
+  .music-floating-button {
+    right: calc(50% - var(--site-max-width) / 2 + var(--space-4));
+  }
+}
+
+.gallery-prev-css {
+  display: inline-block;
+  transform: scaleX(-1);
+}
+
+.editorial-media {
+  margin: 0;
+}
+
+.editorial-photo-stack {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: var(--space-3);
+  flex-wrap: nowrap;
+}
+
+.premium-gold-rule {
+  margin-block: var(--space-4);
+  opacity: 0.88;
+}
+
+/* ── Site-wide floating hearts ── */
+
+.site-heart-field {
+  position: fixed;
+  inset: 0;
+  z-index: 48;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-premium);
+}
+
+.site-heart-field.is-active {
+  opacity: 1;
+}
+
+.site-heart-field__slot {
+  position: absolute;
+  bottom: -8vh;
+  width: var(--heart-size, 14px);
+  height: var(--heart-size, 14px);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: siteHeartDrift var(--heart-duration, 20s) var(--ease-soft) var(--heart-delay, 0s) infinite;
+}
+
+.site-heart-field__heart {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scaleX(var(--heart-scale-x, 1));
+  filter: drop-shadow(0 2px 6px rgba(122, 48, 64, 0.18));
+  opacity: var(--heart-opacity, 0.22);
+}
+

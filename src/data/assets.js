@@ -1,0 +1,65 @@
+export const assets = {
+  backgrounds: {
+    creamPaper: "/assets/backgrounds/bg-cream-paper.png",
+    softPinkGradient: "/assets/backgrounds/bg-soft-pink-gradient.png",
+    filmGrain: "/assets/backgrounds/bg-film-grain.png",
+  },
+  envelope: {
+    flapTop: "/assets/envelope/envelope-flap-top.png",
+    flapLeft: "/assets/envelope/envelope-flap-left.png",
+    flapRight: "/assets/envelope/envelope-flap-right.png",
+    flapBottom: "/assets/envelope/envelope-flap-bottom.png",
+    letterCard: "/assets/envelope/envelope-letter-card.png",
+    heartSealRed: "/assets/envelope/heart-seal-red.png",
+    heartSealGold: "/assets/envelope/heart-seal-gold.png",
+  },
+  branding: {
+    logo: "/assets/branding/sajida-nazwa-logo.png",
+    monogram: "/assets/branding/sn-monogram.png",
+    number25: "/assets/branding/number-25-gold.png",
+  },
+  decorations: {
+    divider: "/assets/decorations/divider-gold-flourish.png",
+    cornerFloralLeft: "/assets/decorations/corner-floral-left.png",
+    cornerFloralRight: "/assets/decorations/corner-floral-right.png",
+    sparkleGold: "/assets/decorations/sparkle-gold.png",
+    floatingPetal: "/assets/decorations/floating-petal.png",
+    floatingHeart: "/assets/decorations/floating-heart.png",
+    heartPin: "/assets/decorations/heart-pin.png",
+    timelineLine: "/assets/decorations/timeline-line-gold.png",
+    timelineDotHeart: "/assets/decorations/timeline-dot-heart.png",
+  },
+  scrapbook: {
+    polaroidFrame: "/assets/scrapbook/polaroid-frame.png",
+    tapePink: "/assets/scrapbook/photo-tape-pink.png",
+    tapeCream: "/assets/scrapbook/photo-tape-cream.png",
+    tapePinkOrig: "/assets/scrapbook/photo-tape-pink.orig.png",
+    tapeCreamOrig: "/assets/scrapbook/photo-tape-cream.orig.png",
+    paperClipGold: "/assets/scrapbook/paper-clip-gold.png",
+  },
+  letter: {
+    paperMain: "/assets/letter/letter-paper-main.png",
+    foldShadow: "/assets/letter/letter-fold-shadow.png",
+    signature: "/assets/letter/signature-seemon.png",
+  },
+  icons: {
+    musicButton: "/assets/icons/music-button.png",
+    playHeartButton: "/assets/icons/play-heart-button.png",
+    galleryNext: "/assets/icons/gallery-next.png",
+  },
+  final: {
+    birthdayCakeVideo: "/assets/final/birthday-cake-25.mp4",
+    heartFrame: "/assets/final/final-heart-frame.png",
+    birthdayIllustration: "/assets/final/final-birthday-illustration.png",
+  },
+  music: {
+    happyBirthdaySong: "/assets/music/happy-birthday-song.m4a",
+    storySong: "/assets/music/live-for-you.mp3",
+  },
+  fonts: {
+    havana: "/assets/fonts/Havana.ttf",
+    happyBirthday: "/assets/fonts/HappyBirthday_Demo.ttf",
+    jumpingChickOtf: "/assets/fonts/Jumping Chick.otf",
+    jumpingChickTtf: "/assets/fonts/Jumping Chick.ttf",
+  },
+};

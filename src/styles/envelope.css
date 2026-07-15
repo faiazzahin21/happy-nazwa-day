@@ -1,0 +1,234 @@
+/* ============================================================
+   Figma envelope gate (exact coordinate system: 402 x 750)
+   Copied from E:\Projects\Wedding\css\styles.css
+   ============================================================ */
+.envelope-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    width: 100vw;
+    height: 100dvh;
+    overflow: hidden;
+    display: grid;
+    place-items: center;
+    background: #f7ebe1;
+}
+
+.envelope-gate::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse 80% 55% at 50% 40%, rgba(255, 232, 200, 0.45), transparent 65%),
+        url("/assets/backgrounds/bg-cream-paper.png") center / cover no-repeat,
+        linear-gradient(135deg, #fbf3ea 0%, #f0ddd0 100%);
+    opacity: 1;
+}
+
+.envelope-gate::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 12;
+    background:
+        radial-gradient(circle at 50% 52%, rgba(255, 243, 207, 0.68) 0%, rgba(255, 236, 186, 0.28) 24%, rgba(255, 233, 177, 0.06) 48%, rgba(255, 230, 170, 0) 68%),
+        radial-gradient(circle at 46% 50%, rgba(255, 227, 153, 0.62) 0 1.7%, transparent 3.4%),
+        radial-gradient(circle at 53% 52%, rgba(255, 224, 145, 0.52) 0 1.4%, transparent 3%),
+        radial-gradient(circle at 49% 54%, rgba(255, 239, 194, 0.48) 0 1.2%, transparent 2.8%);
+}
+
+@keyframes ceremonialBloom {
+    0% {
+        opacity: 0;
+        transform: scale(0.92);
+        filter: blur(0px);
+    }
+    24% {
+        opacity: 0.95;
+        transform: scale(1.04);
+        filter: blur(0.4px);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(1.12);
+        filter: blur(1.1px);
+    }
+}
+
+body.is-opening .envelope-gate::after {
+    animation: ceremonialBloom 0.62s cubic-bezier(0.19, 1, 0.22, 1) 0.06s both;
+}
+
+.figma-envelope-wrap {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    /* Cover the whole viewport on every device, always centred (symmetric crop). */
+    width: max(100vw, calc(100dvh * 402 / 750));
+    height: max(100dvh, calc(100vw * 750 / 402));
+}
+
+.figma-envelope-stage {
+    position: absolute;
+    inset: 0;
+    overflow: visible;
+}
+
+.envelope-body-bg {
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    background: url("/assets/backgrounds/bg-cream-paper.png") center / cover no-repeat, #f9f5ee;
+}
+
+.figma-flap,
+.wax-seal img {
+    position: absolute;
+    display: block;
+    max-width: none;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.figma-flap--right {
+    left: 44.03%;
+    top: 14.8%;
+    width: 55.97%;
+    height: 83.73%;
+}
+
+.figma-flap--left {
+    left: 0;
+    top: 13.2%;
+    width: 48.01%;
+    height: 87.2%;
+}
+
+.figma-flap--top {
+    left: 0;
+    top: -14.13%;
+    width: 100%;
+    height: 80.27%;
+}
+
+.figma-flap--bottom {
+    left: 0;
+    top: 51.6%;
+    width: 100%;
+    height: 82.13%;
+}
+
+.wax-seal {
+    position: absolute;
+    left: 31.84%;
+    top: 48.27%;
+    width: 38.56%;
+    aspect-ratio: 1 / 1;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    z-index: 20;
+}
+
+.wax-seal img {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tap-to-open {
+    position: absolute;
+    left: 0;
+    top: 68%;
+    width: 100%;
+    z-index: 15;
+    text-align: center;
+    font-family: "Havana", Georgia, serif;
+    font-size: clamp(0.72rem, 2.8vw, 0.95rem);
+    letter-spacing: 0.28em;
+    color: #866739;
+    pointer-events: none;
+}
+
+body.is-opening .figma-flap--right {
+    transform: translateX(69.65%);
+    opacity: 0;
+    transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s, opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+}
+
+body.is-opening .figma-flap--left {
+    transform: translateX(-62.5%);
+    opacity: 0;
+    transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s, opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+}
+
+body.is-opening .figma-flap--top {
+    transform: translateY(-42.67%);
+    opacity: 0;
+    transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s, opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+}
+
+body.is-opening .figma-flap--bottom {
+    transform: translateY(42.67%);
+    opacity: 0;
+    transition: transform 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s, opacity 1.35s cubic-bezier(0.22, 1, 0.36, 1) 0.8s;
+}
+
+body.is-opening .wax-seal {
+    transform: scale(0);
+    opacity: 0;
+    transition:
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s,
+    opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+}
+
+body.is-opening .tap-to-open {
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+body.is-open .envelope-gate {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity 1.35s cubic-bezier(0.19, 1, 0.22, 1),
+        visibility 0s linear 1.35s;
+}
+
+/* Main site — hidden until the envelope opens */
+.site-main {
+    position: relative;
+    z-index: 1;
+    isolation: isolate;
+    opacity: 0;
+    transition: opacity 1.4s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+body.is-opening .site-main,
+body.is-open .site-main,
+.site-main.is-revealed {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.is-opening .envelope-gate,
+    body.is-open .envelope-gate {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .envelope-gate::after {
+        animation: none !important;
+        opacity: 0 !important;
+    }
+
+    .site-main {
+        transition: none !important;
+    }
+}
