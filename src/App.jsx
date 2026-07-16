@@ -8,6 +8,8 @@ import MemoryScatteredSection from "./sections/MemoryScatteredSection.jsx";
 import LittleMomentsSection from "./sections/LittleMomentsSection.jsx";
 import LoveLetterSection from "./sections/LoveLetterSection.jsx";
 import FinalBirthdaySection from "./sections/FinalBirthdaySection.jsx";
+import BalloonBurst, { preloadBalloonAssets } from "./components/BalloonBurst.jsx";
+import FireworkSky from "./components/FireworkSky.jsx";
 import SiteHeartField from "./components/SiteHeartField.jsx";
 import useMusicManager from "./hooks/useMusicManager.js";
 import {
@@ -40,6 +42,7 @@ function OpeningExperience() {
   const [opened, setOpened] = useState(false);
   const [gateHidden, setGateHidden] = useState(false);
   const [siteRevealed, setSiteRevealed] = useState(false);
+  const [balloonsActive, setBalloonsActive] = useState(false);
   const timersRef = useRef([]);
 
   const music = useMusicManager();
@@ -51,6 +54,7 @@ function OpeningExperience() {
 
   useEffect(() => {
     document.body.classList.remove("is-opening", "is-open", "is-final-section");
+    preloadBalloonAssets();
 
     return () => {
       timersRef.current.forEach(clearTimeout);
@@ -59,9 +63,14 @@ function OpeningExperience() {
     };
   }, []);
 
+  const handleBalloonDone = useCallback(() => {
+    setBalloonsActive(false);
+  }, []);
+
   const handleOpen = useCallback(async () => {
     if (opened) return;
     setOpened(true);
+    setBalloonsActive(true);
 
     document.body.classList.add("is-opening");
 
@@ -98,6 +107,8 @@ function OpeningExperience() {
   return (
     <>
       <OpeningEnvelope isOpen={opened} onOpen={handleOpen} hidden={gateHidden} />
+      <BalloonBurst active={balloonsActive} onDone={handleBalloonDone} />
+      <FireworkSky active={Boolean(music.fireworksActive)} />
       <SiteHeartField active={siteRevealed} />
 
       <main
