@@ -7,6 +7,9 @@ const CROSSFADE_MS = 3000;
 const CROSSFADE_MS_REDUCED = 650;
 const PLAY_RETRIES = 4;
 const PLAY_RETRY_MS = 280;
+/** First story playthrough → fireworks window → song loops forever after. */
+const FIREWORKS_MS = 8000;
+const FIREWORKS_MS_REDUCED = 400;
 
 function easeInOutCubic(t) {
   return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -74,7 +77,8 @@ function createEngine() {
   setAudioVolume(happy, HAPPY_VOLUME);
 
   const story = new Audio(assets.music.storySong);
-  story.loop = true;
+  // First play is one-shot so we can catch `ended` for fireworks; loop after that.
+  story.loop = false;
   story.preload = "auto";
   setAudioVolume(story, 0);
 
@@ -92,11 +96,14 @@ function createEngine() {
     storyLocked: false,
     cueConsumed: false,
     fading: false,
+    fireworksActive: false,
+    fireworksDone: false,
     error: null,
   };
 
   const listeners = new Set();
   let fadeRaf = 0;
+  let fireworksTimer = 0;
   let snapshot = {
     activeTrack: null,
     isPlaying: false,
@@ -104,6 +111,8 @@ function createEngine() {
     storyLocked: false,
     cueConsumed: false,
     fading: false,
+    fireworksActive: false,
+    fireworksDone: false,
     error: null,
   };
 
@@ -222,11 +231,48 @@ function createEngine() {
     return true;
   };
 
-  /**
-   * Idempotent entry: first Since cue (or retry) until story is locked & playing.
-   */
+  const resumeStoryAfterFireworks = async () => {
+    fireworksTimer = 0;
+    setState({ fireworksActive: false });
+
+    story.loop = true;
+    try {
+      story.currentTime = 0;
+    } catch {
+      /* ignore */
+    }
+    setAudioVolume(story, STORY_VOLUME);
+    const ok = await playWithRetry(story, 3);
+    setState({
+      isPlaying: ok,
+      activeTrack: "story",
+      storyLocked: true,
+      fireworksActive: false,
+      error: ok ? null : "play-blocked",
+    });
+  };
+
+  const beginFireworksInterlude = () => {
+    if (state.fireworksDone || state.fireworksActive) return;
+
+    safePauseAudio(story);
+    setState({
+      fireworksActive: true,
+      fireworksDone: true,
+      isPlaying: false,
+      activeTrack: "story",
+    });
+
+    const duration = prefersReducedMotion() ? FIREWORKS_MS_REDUCED : FIREWORKS_MS;
+    if (fireworksTimer) window.clearTimeout(fireworksTimer);
+    fireworksTimer = window.setTimeout(() => {
+      void resumeStoryAfterFireworks();
+    }, duration);
+  };
   const ensureStoryScore = async () => {
     if (state.storyLocked) {
+      // Don't yank the song back mid-fireworks
+      if (state.fireworksActive) return true;
       if (story.paused) {
         setAudioVolume(story, STORY_VOLUME);
         const ok = await playWithRetry(story);
@@ -247,16 +293,17 @@ function createEngine() {
 
   const destroy = () => {
     if (fadeRaf) cancelAnimationFrame(fadeRaf);
+    if (fireworksTimer) window.clearTimeout(fireworksTimer);
     safePauseAudio(happy);
     safePauseAudio(story);
   };
 
   // Keep story alive if the browser pauses it while locked
   const onStoryPause = () => {
-    if (!state.storyLocked || state.fading) return;
+    if (!state.storyLocked || state.fading || state.fireworksActive) return;
     // If locked and unexpectedly paused (except intentional pause APIs — we don't expose pause for story), nudge resume
     window.setTimeout(async () => {
-      if (!state.storyLocked || state.fading) return;
+      if (!state.storyLocked || state.fading || state.fireworksActive) return;
       if (!story.paused) return;
       await playWithRetry(story, 2);
       setState({ isPlaying: !story.paused, activeTrack: "story" });
@@ -264,14 +311,22 @@ function createEngine() {
   };
   story.addEventListener("pause", onStoryPause);
   story.addEventListener("ended", async () => {
-    // loop=true should handle, but belt-and-suspenders
     if (!state.storyLocked) return;
+
+    // First natural end → fireworks once, then loop forever
+    if (!state.fireworksDone) {
+      beginFireworksInterlude();
+      return;
+    }
+
+    // After the interlude, loop=true should handle restarts; belt-and-suspenders
     try {
       story.currentTime = 0;
     } catch {
       /* ignore */
     }
     await playWithRetry(story, 2);
+    setState({ isPlaying: !story.paused, activeTrack: "story" });
   });
 
   return {
@@ -286,6 +341,9 @@ function createEngine() {
     },
     get storyLocked() {
       return state.storyLocked;
+    },
+    get fireworksActive() {
+      return state.fireworksActive;
     },
   };
 }

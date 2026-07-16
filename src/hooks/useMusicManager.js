@@ -14,6 +14,8 @@ export default function useMusicManager() {
       storyLocked: false,
       cueConsumed: false,
       fading: false,
+      fireworksActive: false,
+      fireworksDone: false,
       error: null,
     }),
   );
